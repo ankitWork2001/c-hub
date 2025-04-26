@@ -1,0 +1,33 @@
+📂 backend/
+│── 📂 config/              # Configuration files (DB, Auth, etc.)
+│   ├── db.js               # MongoDB connection setup
+│   ├── cloudinary.js       # Cloudinary config (if needed for image uploads)
+│
+│── 📂 controllers/         # Business logic
+│   ├── authController.js   # Admin authentication (signup/login)
+│   ├── couponController.js # CRUD for coupons
+│   ├── categoryController.js # CRUD for categories
+│   ├── storeController.js  # CRUD for stores
+│   ├── adminController.js  # Admin functionalities
+│
+│── 📂 middleware/          # Middleware functions
+│   ├── authMiddleware.js   # JWT authentication
+│  
+│
+│── 📂 models/              # Mongoose schemas
+│   ├── userModel.js        # Admin schema (with login system)
+│   ├── couponModel.js      # Coupon schema
+│   ├── categoryModel.js    # Category schema
+│   ├── storeModel.js       # Store schema
+│
+│── 📂 routes/              # API endpoints
+│   ├── authRoutes.js       # Routes for authentication
+│   ├── couponRoutes.js     # Routes for coupons
+│   ├── categoryRoutes.js   # Routes for categories
+│   ├── storeRoutes.js      # Routes for stores
+│   ├── adminRoutes.js      # Routes for admin operations
+│
+│
+│── .env                    # Environment variables
+│── server.js               # Backend entry point
+│── package.json            # Dependencies & scripts

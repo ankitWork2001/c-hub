@@ -1,0 +1,47 @@
+components/ — Reusable UI Blocks
+These are visual, presentational components used in different pages.
+
+File	Purpose
+Navbar.jsx	Contains nav links to categories, stores, login, etc.
+Footer.jsx	Footer with contact info, social links.
+HeroBanner.jsx	A sliding banner showing top promotions.
+DealOfDaySection.jsx	Displays featured coupons marked as "Deal of the Day".
+TopStoresSection.jsx	Renders top stores from admin DB.
+CategoriesSection.jsx	Shows list of categories dynamically.
+CouponCard.jsx	A single coupon UI with "Copy Code" or "Get Deal" button.
+StoreCard.jsx	Card layout for a store (used in TopStoresSection).
+CategoryCard.jsx	Card layout for a category (used in CategoriesSection).
+
+These are imported into page files (like Home.jsx, CategoryPage.jsx) to build the UI.
+
+📁 pages/ — Main Page Routes for Users
+File	Purpose
+Home.jsx	Loads the homepage with hero, deals, categories, and stores.
+CategoryPage.jsx	Displays coupons related to a specific category (/category/travel)
+StorePage.jsx	Displays coupons of a specific store (/store/amazon)
+
+Each of these represents a full page and renders different components.
+
+📁 admin/ — Admin Panel Pages
+Accessible via routes like /admin, these are separate from the main site and allow admins to manage data.
+
+File	Purpose
+Dashboard.jsx	Shows stats like total coupons, top deals, etc.
+Coupons.jsx	Create, edit, delete, feature coupons.
+Categories.jsx	Manage all categories.
+Stores.jsx	Manage all stores.
+Login.jsx	Login form for admin access (auth handled via authAPI.js)
+You can use a layout component here if needed (AdminSidebar, AdminNavbar, etc.)
+
+📁 redux/ — Global State Management with Redux Toolkit
+These files help manage shared state and API data across the app.
+
+File	           Purpose
+store.js	    Combines all slices and sets up the Redux store.
+couponSlice.js	Manages coupon data (list, feature, click count).
+categorySlice.js	Fetches and stores all categories.
+storeSlice.js	Handles store data.
+adminSlice.js	Manages admin session and login/logout state.
+
+Pages/components use useSelector() to access this data and useDispatch() to update it.
+

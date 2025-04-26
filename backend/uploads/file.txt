@@ -1,0 +1,1 @@
+All images are stored if any error occurs
