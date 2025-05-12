@@ -1,72 +1,68 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import macbook from "../../assets/dealoftheday_image.jpg";
-
 import CouponCard from "./CouponCard";
+
 const DealOfDaySection = () => {
-  const [couponDetails, setCouponDetails] = useState();
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [couponDetails, setCouponDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let config = {
+    const config = {
       method: "get",
       maxBodyLength: Infinity,
       url: `${import.meta.env.VITE_APP_BACKEND}api/coupons/`,
       headers: {
         "Content-Type": "application/json",
-        
       },
     };
-    async function makeRequest() {
-      try { // Add try...catch for error handling
-        let response = await axios.request(config);
-        let data = response.data;
-        setCouponDetails(
-          data.filter((value) => {
-            return value.featured;
-          })
-        );
+
+    const makeRequest = async () => {
+      try {
+        const response = await axios.request(config);
+        const data = response.data;
+        setCouponDetails(data.filter((value) => value.featured));
       } catch (error) {
         console.error("Failed to fetch coupons:", error);
-        setCouponDetails([]); // Set to empty array on error to avoid issues
+        setCouponDetails([]);
       } finally {
-        setLoading(false); // Set loading to false after fetch attempt
+        setLoading(false);
       }
-    }
+    };
 
     makeRequest();
   }, []);
 
   return (
-    <>
-    <div className="m-auto my-5 w-[90vw]"> {/* Added padding */}
-      <h1 className="text-4xl mb-4" > Deals Of The Day</h1>
-      <div className="flex flex-wrap gap-10 justify-center"> {/* Added justify-center */}
-      {loading ? (
-          <p className="text-center w-full text-gray-500">Loading deals...</p> // Show loading indicator
-        ) : couponDetails && couponDetails.length > 0 ? (
-          couponDetails.map((value) => { // Use value._id for key if available and unique
-            return (
+    <section className="w-full px-4 py-10 md:py-16 bg-white font-sans">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 text-gray-800 tracking-tight">
+          Deals of the Day
+        </h2>
+
+        {loading ? (
+          <p className="text-center text-lg text-gray-500 animate-pulse">Loading amazing deals...</p>
+        ) : couponDetails.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 transition-opacity duration-300">
+            {couponDetails.map((deal) => (
               <CouponCard
-                key={value._id || index} // Prefer unique ID from data if possible
-                companylogo={value?.store?.logo}
-                image={value?.category?.image || macbook}
-                minPurchase={value.minimumPurchaseAmount}
-                description={value.description}
-                id={value._id}
-                code={value.couponCode}
+                key={deal._id}
+                companylogo={deal?.store?.logo}
+                image={deal?.category?.image || macbook}
+                minPurchase={deal.minimumPurchaseAmount}
+                description={deal.description}
+                id={deal._id}
+                code={deal.couponCode}
               />
-            );
-          })
+            ))}
+          </div>
         ) : (
-          <p className="text-center w-full text-gray-500 p-4">
-            No featured Deals of the Day available right now. Check back soon!
-          </p> // Message when no deals are found
+          <p className="text-center text-gray-500 text-lg p-6 bg-gray-100 rounded-md">
+              No featured deals available right now. Please check back later!
+          </p>
         )}
       </div>
-      </div>
-    </>
+    </section>
   );
 };
 

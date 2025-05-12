@@ -1,41 +1,48 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CategoryCard from "./CategoryCard";
 
 const CategoriesSection = () => {
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    let config = {
+    const config = {
       method: "get",
       maxBodyLength: Infinity,
       url: `${import.meta.env.VITE_APP_BACKEND}api/categories/`,
       headers: {
         "Content-Type": "application/json",
-        
       },
     };
+
     async function makeRequest() {
-      let response = await axios.request(config);
-      // console.log(response.data.categories);
-      setCategory(response?.data?.categories);
+      try {
+        const response = await axios.request(config);
+        setCategory(response?.data?.categories || []);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
     }
 
     makeRequest();
   }, []);
 
   return (
-    <>
-    <div className="w-[90vw] m-auto mt-5 flex flex-col gap-y-5 bg-white rounded-lg">
-      <h1 className="text-4xl">Categories</h1>
-      <div className="flex flex-wrap gap-8 items-center justify-center">
-        {category?.map((value,index)=>{
-          return <CategoryCard key={index} image={value.image} name={value.name} totalCoupons={value.totalCoupons} />
-        })}
+    <section className="w-full px-4 py-12 bg-white font-sans">
+      <div className="max-w-7xl mx-auto text-center">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-8">🎯 Categories</h2>
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+          {category.map((value, index) => (
+            <CategoryCard
+              key={index}
+              image={value.image}
+              name={value.name}
+              totalCoupons={value.totalCoupons}
+            />
+          ))}
+        </div>
       </div>
-      </div>
-    </>
+    </section>
   );
 };
 

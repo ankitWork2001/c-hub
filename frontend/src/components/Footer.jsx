@@ -1,94 +1,87 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import {
   FaInstagram,
   FaFacebookF,
   FaYoutube,
   FaLinkedinIn,
   FaTwitter,
-  FaGooglePlay,
-  FaAppStoreIos
-} from 'react-icons/fa';
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-blue-600 text-white px-8 py-10 mt-10">
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-6 text-sm">
-        {/* Quick Links */}
-        <div>
-          <h4 className="font-semibold mb-2">Quick Links</h4>
-          <ul className="space-y-1">
-            <li><Link to="/aboutus">About Us</Link></li>
-            <li><a href="#">How It Works</a></li>
-            <li><Link to="/contactus">Contact Us</Link></li>
-            <li><a href="#">FAQs</a></li>
-            <li><a href="#">Blog</a></li>
-          </ul>
-        </div>
+    <footer className="bg-blue-700 text-white px-4 md:px-12 py-6 mt-8">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm">
+    <div>
+      <h4 className="font-bold text-lg mb-2 border-b border-blue-400 pb-2">Quick Links</h4>
+      <ul className="space-y-1">
+        <li><Link to="/aboutus" className="hover:text-blue-200 transition">About Us</Link></li>
+        <li><a href="#" className="hover:text-blue-200 transition">How It Works</a></li>
+        <li><Link to="/contactus" className="hover:text-blue-200 transition">Contact Us</Link></li>
+        <li><a href="#" className="hover:text-blue-200 transition">FAQs</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Blog</a></li>
+      </ul>
+    </div>
 
-        {/* Categories */}
-        <div>
-          <h4 className="font-semibold mb-2">Categories</h4>
-          <ul className="space-y-1">
-            <li><a href="#">Fashion Deals</a></li>
-            <li><a href="#">Electronics Offers</a></li>
-            <li><a href="#">Travel Discounts</a></li>
-            <li><a href="#">Food & Dining Coupons</a></li>
-            <li><a href="#">Health & Beauty Deals</a></li>
-          </ul>
-        </div>
+    <div>
+      <h4 className="font-bold text-lg mb-2 border-b border-blue-400 pb-2">Categories</h4>
+      <ul className="space-y-1">
+        <li><a href="#" className="hover:text-blue-200 transition">Sports Wear</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Electronics</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Furniture</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Watch</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Clothing</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Books</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Mobile</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Women Cloths</a></li>
+        <li><a href="#" className="hover:text-blue-200 transition">Travel</a></li>
+      </ul>
+    </div>
 
-        {/* Top Brands */}
-          <div>
-            <h4 className="font-semibold mb-2">Top Brands</h4>
-            <ul className="space-y-1">
-              <li><Link to="/store">Amazon</Link></li>
-              <li><Link to="/store">Flipkart</Link></li>
-              <li><Link to="/store">Myntra</Link></li>
-              <li><Link to="/store">Airbnb</Link></li>
-              <li><Link to="/store">Puma</Link></li>
-              <li><Link to="/store">Rolex</Link></li>
-            </ul>
-          </div>
+    <div>
+      <h4 className="font-bold text-lg mb-2 border-b border-blue-400 pb-2">Top Brands</h4>
+      <ul className="space-y-1">
+        <li><Link to="/store" className="hover:text-blue-200 transition">Amazon</Link></li>
+        <li><Link to="/store" className="hover:text-blue-200 transition">Flipkart</Link></li>
+        <li><Link to="/store" className="hover:text-blue-200 transition">Myntra</Link></li>
+        <li><Link to="/store" className="hover:text-blue-200 transition">Airbnb</Link></li>
+        <li><Link to="/store" className="hover:text-blue-200 transition">Puma</Link></li>
+        <li><Link to="/store" className="hover:text-blue-200 transition">Rolex</Link></li>
+      </ul>
+    </div>
 
-          {/* Customer Support */}
-        <div>
-          <h4 className="font-semibold mb-2">Customer Support</h4>
-          <ul className="space-y-1">
-            <li><a href="#">Live Chat Support</a></li>
-            <li className='wrap-anywhere'>Email: support@yourcouponwebsite.com</li>
-            <li>Phone: +91 XXXXX XXXXX</li>
-          </ul>
-        </div>
+    <div>
+      <h4 className="font-bold text-lg mb-2 border-b border-blue-400 pb-2">Customer Support</h4>
+      <ul className="space-y-1">
+        <li className="break-words">Email: support@yourcouponwebsite.com</li>
+      </ul>
+    </div>
 
-        {/* Social Media */}
-        <div>
-          <h4 className="font-semibold mb-2">Social Media</h4>
-          <div className="flex space-x-3 text-lg">
-            <a href="#"><FaInstagram /></a>
-            <a href="#"><FaFacebookF /></a>
-            <a href="#"><FaYoutube /></a>
-            <a href="#"><FaLinkedinIn /></a>
-            <a href="#"><FaTwitter /></a>
-          </div>
-        </div>
-
-        {/* Download App */}
-        <div>
-          <h4 className="font-semibold mb-2">Download Mobile App</h4>
-          <div className="flex space-x-3 text-2xl">
-            <a href="#"><FaGooglePlay /></a>
-            <a href="#"><FaAppStoreIos /></a>
-          </div>
-        </div>
+    <div>
+      <h4 className="font-bold text-lg mb-2 border-b border-blue-400 pb-2">Social Media</h4>
+      <div className="flex space-x-3 text-xl">
+        <a href="#" className="hover:text-blue-200 transition"><FaInstagram /></a>
+        <a href="#" className="hover:text-blue-200 transition"><FaFacebookF /></a>
+        <a href="#" className="hover:text-blue-200 transition"><FaYoutube /></a>
+        <a href="#" className="hover:text-blue-200 transition"><FaLinkedinIn /></a>
+        <a href="#" className="hover:text-blue-200 transition"><FaTwitter /></a>
       </div>
+    </div>
 
-      {/* Copyright */}
-      <div className="mt-10 text-center text-sm">
-        © Copyright 2025. All Rights Reserved.
-      </div>
-    </footer>
+    <div className="flex flex-col justify-end">
+      <Link to="/admin/login">
+        <button className="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-md w-full hidden md:block">
+          Admin Login
+        </button>
+      </Link>
+    </div>
+  </div>
+
+  <div className="border-t border-blue-400 mt-6 pt-6 text-center">
+    <p className="text-sm tracking-wide">
+      © Copyright 2025. All rights reserved.
+    </p>
+  </div>
+</footer>
+
   );
-};
-
-export default Footer;
+}

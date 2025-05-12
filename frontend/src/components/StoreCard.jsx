@@ -1,40 +1,36 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setStoreId,setStoreName } from '../redux/storeSlice';
+import { setStoreId, setStoreName } from '../redux/storeSlice';
 import { useNavigate } from 'react-router-dom';
-const StoreCard = ({logo,name,totalCoupons,id}) => {
+
+const StoreCard = ({ logo, name, totalCoupons, id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleClick = () => {
-    // console.log(`Clicked on ${name}`);
     dispatch(setStoreId(id));
     dispatch(setStoreName(name));
-
     navigate(`/store`);
   };
+
   return (
-    <div className='bg-amber-50 flex flex-col justify-center items-center border-3 rounded-lg border-yellow-500 gap-2 p-3 sm:p-4 md:p-5 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out'
-    onClick={handleClick}
+    <div
+      className="bg-white shadow-sm hover:shadow-md border border-gray-200 rounded-lg p-4 sm:p-5 flex flex-col items-center text-center cursor-pointer transition-all hover:scale-[1.02]"
+      onClick={handleClick}
     >
-
-      <img 
-        src={logo} 
-        alt={`${name} logo`} 
-        className="mix-blend-multiply object-contain h-24 w-34"
-      />
-      <h2 className='text-xl font-semibold'>{name}</h2>
-      
-      <button className='border-1 px-2 md:px-4 py-2 rounded bg-white text-orange-400 flex gap-x-1 flex-wrap justify-center'>
-        <div>
-         Upto 
-        </div>
-        <div>
-         {totalCoupons} % 
-        </div>
-      </button>
-
+      <div className="w-20 h-20 mb-3 flex items-center justify-center">
+        <img
+          src={logo}
+          alt={`${name} logo`}
+          className="object-contain w-full h-full mix-blend-multiply"
+        />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-800 mb-1">{name}</h3>
+      <div className="bg-orange-100 text-orange-600 font-medium px-3 py-1 rounded-full text-sm">
+        Upto {totalCoupons}% Off
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default StoreCard
+export default StoreCard;

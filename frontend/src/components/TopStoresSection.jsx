@@ -1,58 +1,62 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import StoreCard from './StoreCard';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {resetStore } from '../redux/storeSlice';
+import { resetStore } from '../redux/storeSlice';
+
 const TopStoresSection = () => {
-    const dispatch = useDispatch();
-    const [stores, setStores] = useState([]);
-    useEffect(()=>{
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: `${import.meta.env.VITE_APP_BACKEND}api/stores`,
-          };
-          
-          async function makeRequest() {
-            try {
-              const response = await axios.request(config);
-              // Sort stores by createdAt date (ascending order - oldest first)
-              const sortedStores = response.data.stores.sort((a, b) => {
-                return new Date(a.createdAt) - new Date(b.createdAt);
-              });
-              setStores(sortedStores);
-            }
-            catch (error) {
-              console.log(error);
-            }
-          }
-          
-          makeRequest();
-    },[]);
+  const dispatch = useDispatch();
+  const [stores, setStores] = useState([]);
+
+  useEffect(() => {
+    const config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `${import.meta.env.VITE_APP_BACKEND}api/stores`,
+    };
+
+    const makeRequest = async () => {
+      try {
+        const response = await axios.request(config);
+        const sortedStores = response.data.stores.sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+        setStores(sortedStores);
+      } catch (error) {
+        console.error("Failed to fetch stores:", error);
+      }
+    };
+
+    makeRequest();
+  }, []);
 
   return (
-    <div className='w-[90vw] m-auto mt-5'>
-        <div className='flex justify-between mb-10 items-center'>
-            <h1 className='text-4xl'>Top Stores</h1>
-            <Link to='/store' onClick={()=>{dispatch(resetStore())}}>
-            <button className=' text-orange-300 text-2xl rounded cursor-pointer' >Visit All Stores</button>
-            </Link>
-        </div>
-        {/* The main flex container */}
-        <div className='flex flex-wrap gap-x-8 gap-y-8 justify-center items-center bg-amber-200 p-3 md:p-10 rounded-lg'>
-            {stores?.map((value)=>{ 
-                return (
-                    
-                    <div key={value._id} className="w-[calc(50%-1rem)] sm:w-auto"> 
-                        <StoreCard logo={value.logo} name={value.name} totalCoupons={value.totalCoupons} id={value._id} />
-                    </div>
-                )
-            })}
+    <section className="w-full px-4 py-12 bg-white font-sans">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-800">Top Stores</h2>
+          <Link to="/store" onClick={() => dispatch(resetStore())}>
+            <button className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white text-lg font-medium rounded-md shadow transition duration-300">
+              Visit All Stores
+            </button>
+          </Link>
         </div>
 
-    </div>
-  )
-}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-fadeIn">
+          {stores.map((store) => (
+            <StoreCard
+              key={store._id}
+              logo={store.logo}
+              name={store.name}
+              totalCoupons={store.totalCoupons}
+              id={store._id}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
-export default TopStoresSection
+export default TopStoresSection;
