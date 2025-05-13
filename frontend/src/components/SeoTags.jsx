@@ -1,9 +1,8 @@
-import React from "react";
 import { Helmet } from "react-helmet";
 
 const SeoTags = ({
      title = "CouponSmartDeals - Smart Coupons, Promo Codes & Best Deals",
-     description = "Discover top online coupons, smart promo codes, discount deals, and savings offers. CouponSmartDeals helps you save more while shopping at your favorite stores.",
+     description = "Discover top online coupons, smart promo codes, discount deals, and savings offers. CouponSmartDeals helps you save more while shopping at your favorite stores. at your favorite stores.",
      keywords = "coupons, smart coupon, coupon smart deals, online deals, discount codes, smartdeals, promo offers, coupons smart, coupon smartdeals, smartcoupons, save money online",
      canonical = "https://www.couponsmartdeals.com",
 }) => {
