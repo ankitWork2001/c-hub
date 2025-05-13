@@ -29,11 +29,6 @@ const CategoryCard = ({ image, name, totalCoupons }) => {
         description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
         canonical="https://www.couponsmartdeals.com"
       />
-      <SeoTags
-        title="Smart Coupons & Promo Codes | CouponSmartDeals"
-        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
-        canonical="https://www.couponsmartdeals.com"
-      />
     </div>
   );
 };

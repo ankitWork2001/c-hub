@@ -6,7 +6,7 @@ import { setCategoryId, setCategoryName } from '../redux/categorySlice'
 import { setCouponId } from '../redux/couponSlice'
 import SeoTags from './SeoTags'
 
-const VariousCategorySection = () => {
+const VariousCategorySection = ({ searchTerm }) => {
     const [categories, setCategories] = React.useState([]); // Initialize as empty array
 
     useEffect(() => {

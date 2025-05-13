@@ -29,8 +29,6 @@ const Navbar = () => {
             </div>
           </Link>
 
-
-
           {/* Search Bar */}
           <div className="flex flex-1">
             <input

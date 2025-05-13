@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setStoreId, setStoreName } from "../redux/storeSlice";
 import { FaFilter } from 'react-icons/fa'; // Add this import at the top
+import SeoTags from "../components/SeoTags";
 
 const StorePage = () => {
   const [store, setStore] = useState();
@@ -155,6 +156,11 @@ const StorePage = () => {
           </div>
         </div>
       </div>
+      <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
     </div>
   );
 };
