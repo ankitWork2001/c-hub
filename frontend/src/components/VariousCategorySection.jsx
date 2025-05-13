@@ -4,68 +4,105 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCategoryId, setCategoryName } from '../redux/categorySlice'
 import { setCouponId } from '../redux/couponSlice'
+import SeoTags from './SeoTags'
 
 const VariousCategorySection = () => {
-    const [categories, setCategories] = React.useState()
+    const [categories, setCategories] = React.useState([]); // Initialize as empty array
+
     useEffect(() => {
-        let config = {
+        const config = {
             method: 'get',
             maxBodyLength: Infinity,
             url: `${import.meta.env.VITE_APP_BACKEND}api/coupons`,
         };
 
-        async function makeRequest() {
+        const makeRequest = async () => {
             try {
                 const response = await axios.request(config);
-                let data = response.data;
-                let map = new Map();
-                data.forEach((item) => {
-                    if (!map.has(item.category.name)) {
-                        map.set(item.category.name, [])
+                const data = response.data;
+
+                // Add error handling for missing category
+                const result = data.reduce((acc, item) => {
+                    if (!item.category) {
+                        console.warn("Coupon missing category:", item._id);
+                        return acc;
                     }
-                    map.get(item.category.name).push(item);
-                });
-                let result = Array.from(map.entries()).map(([key, value]) => ({ category: key, coupons: value }));
+
+                    const existingCategory = acc.find(c => c.category === item.category.name);
+                    if (existingCategory) {
+                        existingCategory.coupons.push(item);
+                    } else {
+                        acc.push({
+                            category: item.category.name,
+                            categoryId: item.category._id,
+                            coupons: [item]
+                        });
+                    }
+                    return acc;
+                }, []);
+
                 setCategories(result);
+            } catch (error) {
+                console.error("Failed to fetch coupons:", error);
+                setCategories([]); // Set empty array on error
             }
-            catch (error) {
-                console.log(error);
-            }
-        }
+        };
 
         makeRequest();
-    }, [])
+    }, []);
+
+    if (categories.length === 0) {
+        return <div className="text-center py-10">Loading categories...</div>;
+    }
+
     return (
         <div className="w-full max-w-[90vw] mx-auto mt-5 px-4 sm:px-6">
-            {categories && categories?.map((item) => (
-                <IndividualCategorySection key={item.category} coupons={item.coupons} name={item.category} />
+            {categories.map((item) => (
+                <IndividualCategorySection
+                    key={item.categoryId || item.category}
+                    categoryName={item.category}
+                    coupons={item.coupons}
+                    categoryId={item.categoryId}
+                    basePath="/category"
+                />
             ))}
         </div>
-    )
-}
+    );
+};
 
-const IndividualCategorySection = ({ coupons, name }) => {
+const IndividualCategorySection = ({ categoryName, coupons, categoryId, basePath }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleClick = () => {
-        dispatch(setCategoryId(coupons[0].category._id))
-        dispatch(setCategoryName(name))
-        navigate(`/category`);
+
+    const handleViewMore = () => {
+        if (!categoryId) {
+            console.error("Missing categoryId");
+            return;
+        }
+        dispatch(setCategoryId(categoryId));
+        dispatch(setCategoryName(categoryName));
+        navigate(basePath);
     };
 
+    // Early return if no coupons
+    if (!coupons || coupons.length === 0) {
+        return null;
+    }
+
     return (
-        <div id={name} className="mb-12">
+        <div id={categoryName} className="mb-12">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
-                <h2 className="text-xl sm:text-2xl font-bold pb-2 border-b-2 border-blue-500">{name}</h2>
-                <button 
-                    onClick={handleClick} 
+                <h2 className="text-xl sm:text-2xl font-bold pb-2 border-b-2 border-blue-500">
+                    {categoryName}
+                </h2>
+                <button
+                    onClick={handleViewMore}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-all duration-300 cursor-pointer text-sm sm:text-base"
                 >
                     View More
                 </button>
             </div>
-            <div 
-                className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-5 rounded-lg"
+            <div className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-5 rounded-lg"
                 style={{
                     borderRadius: '8px',
                     border: '1px solid rgba(80, 85, 92, 0.5)',
@@ -74,27 +111,28 @@ const IndividualCategorySection = ({ coupons, name }) => {
                     minHeight: '343px'
                 }}
             >
-                {coupons.slice(0, 3).map((coupon) => (
-                    <CouponCategoryCard 
-                        key={coupon._id} 
-                        id={coupon._id} 
-                        logo={coupon.store.logo} 
-                        brand={coupon.store.name} 
+                {coupons.map((coupon) => (
+                    <CouponCategoryCard
+                        key={coupon._id}
+                        id={coupon._id}
+                        logo={coupon.store?.logo}
+                        brand={coupon.store?.name}
                         desc={coupon.description}
-                        couponCode={coupon.couponCode} 
+                        couponCode={coupon.couponCode}
+                        basePath={basePath}
                     />
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-const CouponCategoryCard = ({ logo, brand, desc, id, couponCode }) => {
+const CouponCategoryCard = ({ logo, brand, desc, id, couponCode, basePath }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleClick = () => {
         dispatch(setCouponId(id));
-        navigate("/coupon");
+        navigate(`${basePath}/coupon`);
     }
     return (
         <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] lg:w-[calc(25%-2rem)] xl:w-70 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-4 flex flex-col items-center bg-white">
@@ -105,14 +143,14 @@ const CouponCategoryCard = ({ logo, brand, desc, id, couponCode }) => {
             <p className="text-black text-sm text-center mb-4">
                 {desc ? (desc.length > 100 ? `${desc.slice(0, 100)}...` : desc) : 'Versatile, durable, and thoughtfully made to suit your needs with quality you can trust daily.'}
             </p>
-            
+
             {/* Updated Get Deal Button with Coupon Code */}
             <div className="mt-6 p-4 pt-10 relative w-full">
                 <div className="absolute h-13 bottom-4 right-[6.5rem] bg-white border-dashed border-2 border-gray-300 text-gray-500 py-2 px-4 rounded items-center flex justify-center">
                     <span className="font-mono">{couponCode || 'save10'}</span>
                 </div>
                 <div className="flex justify-end">
-                    <button 
+                    <button
                         onClick={handleClick}
                         className="bg-[#ff6a00] hover:bg-orange-600 text-white px-8 py-3 rounded font-medium text-lg transition-colors duration-200 z-10"
                     >
@@ -120,6 +158,11 @@ const CouponCategoryCard = ({ logo, brand, desc, id, couponCode }) => {
                     </button>
                 </div>
             </div>
+            <SeoTags
+                title="Smart Coupons & Promo Codes | CouponSmartDeals"
+                description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+                canonical="https://www.couponsmartdeals.com"
+            />
         </div>
     )
 }

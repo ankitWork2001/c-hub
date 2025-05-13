@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId, setCategoryName } from "../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
 import { FaFilter } from 'react-icons/fa';
+import SeoTags from "../components/SeoTags";
 
 const CategoryPage = () => {
   const [category, setCategory] = useState();
@@ -174,6 +175,11 @@ const CategoryPage = () => {
           </div>
         </div>
       </div>
+      <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
     </div>
   );
 };

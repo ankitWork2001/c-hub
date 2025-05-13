@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
@@ -46,12 +45,20 @@ const router = createBrowserRouter([
         element:<DealOfDay/>
       },
       {
-        path:"/coupon",
+        path: "/dealofday/coupon",
+        element: <CouponPage/>
+      },
+      {
+        path:"/category/coupon",
         element:<CouponPage/>
       },
       {
         path:"/aboutus",
         element:<AboutUs/>
+      },
+      {
+        path: "/coupon",
+        element: <CouponPage/>
       },
       {
         path:"/contactus",

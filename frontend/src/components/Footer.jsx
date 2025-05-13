@@ -6,6 +6,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import SeoTags from "./SeoTags";
 
 export default function Footer() {
   return (
@@ -81,6 +82,11 @@ export default function Footer() {
       © Copyright 2025. All rights reserved.
     </p>
   </div>
+  <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
 </footer>
 
   );

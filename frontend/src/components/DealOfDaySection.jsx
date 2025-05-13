@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import macbook from "../../assets/dealoftheday_image.jpg";
 import CouponCard from "./CouponCard";
+import SeoTags from "./SeoTags";
 
 const DealOfDaySection = () => {
   const [couponDetails, setCouponDetails] = useState([]);
@@ -33,6 +34,8 @@ const DealOfDaySection = () => {
     makeRequest();
   }, []);
 
+  
+
   return (
     <section className="w-full px-4 py-10 md:py-16 bg-white font-sans">
       <div className="max-w-7xl mx-auto">
@@ -53,6 +56,7 @@ const DealOfDaySection = () => {
                 description={deal.description}
                 id={deal._id}
                 code={deal.couponCode}
+                basePath="/dealofday"
               />
             ))}
           </div>
@@ -62,6 +66,11 @@ const DealOfDaySection = () => {
           </p>
         )}
       </div>
+      <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
     </section>
   );
 };

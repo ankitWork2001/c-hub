@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import img from '../../assets/caraousel_image.webp';
+import SeoTags from './SeoTags';
 
 const images = [
   {
@@ -119,6 +120,11 @@ const HeroBanner = () => {
       >
         ❯
       </button>
+      <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
     </div>
   );
 };

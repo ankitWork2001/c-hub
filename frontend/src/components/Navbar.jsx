@@ -5,6 +5,7 @@ import { resetStore } from "../redux/storeSlice";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Logo from "../../assets/Logo.png"; // Your imported logo
+import SeoTags from "./SeoTags";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -120,6 +121,11 @@ const Navbar = () => {
             </Link>
           </div>
         )}
+        <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
       </nav>
     </>
   );

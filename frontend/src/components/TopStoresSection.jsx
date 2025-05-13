@@ -4,6 +4,7 @@ import StoreCard from './StoreCard';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetStore } from '../redux/storeSlice';
+import SeoTags from './SeoTags';
 
 const TopStoresSection = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,11 @@ const TopStoresSection = () => {
           ))}
         </div>
       </div>
+      <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
     </section>
   );
 };

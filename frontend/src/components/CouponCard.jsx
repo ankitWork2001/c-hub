@@ -2,14 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCouponId } from '../redux/couponSlice';
+import SeoTags from './SeoTags';
 
-const CouponCard = ({companylogo, image, minPurchase, description, id, code, title}) => {
+const CouponCard = ({companylogo, image, minPurchase, description, id, code, title, basePath}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const handleClick = () => {
     dispatch(setCouponId(id));
-    navigate("/coupon");
+    navigate(`${basePath}/coupon`);
   }
   
   // Truncate description if it's too long (100 characters)
@@ -90,6 +91,11 @@ const CouponCard = ({companylogo, image, minPurchase, description, id, code, tit
           </button>
         </div>
       </div>
+      <SeoTags
+        title="Smart Coupons & Promo Codes | CouponSmartDeals"
+        description="Use smart coupons and promo codes to save online! CouponSmartDeals brings the best offers from top brands. Explore discounts, deals, and savings."
+        canonical="https://www.couponsmartdeals.com"
+      />
     </div>
   );
 }
