@@ -85,7 +85,7 @@ const CouponCard = ({companylogo, image, minPurchase, description, id, code, tit
         <div className='flex justify-end'>
           <button 
             onClick={handleClick} 
-            className='bg-[#ff6a00] hover:bg-orange-600 text-white px-8 py-3 rounded font-medium text-lg transition-colors duration-200 z-10'
+            className='bg-[#ff6a00] hover:bg-orange-600 text-white px-8 py-3 rounded font-medium text-lg transition-colors duration-200 z-10 cursor-pointer'
           >
             Get Deal
           </button>
