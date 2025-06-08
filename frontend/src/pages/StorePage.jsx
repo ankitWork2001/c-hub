@@ -151,6 +151,8 @@ const StorePage = () => {
                 description={value.description}
                 id={value._id}
                 code={value.couponCode}
+                basePath="/store"
+                
               />
             ))}
           </div>
