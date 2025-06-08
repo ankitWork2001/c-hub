@@ -3,13 +3,16 @@ import axios from 'axios';
 import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import SeoTags from '../components/SeoTags';
+import { useParams } from 'react-router-dom';
 const CouponPage = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [copied, setCopied] = useState(false);
-
-    const couponId = useSelector((state) => state.coupon.couponId);
+    const { couponId: urlCouponId } = useParams();
+    const reduxCouponId = useSelector((state) => state.coupon.couponId);
+    const couponId = urlCouponId || reduxCouponId;
+    
 
     useEffect(() => {
         let config = {
