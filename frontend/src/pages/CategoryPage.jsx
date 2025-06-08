@@ -163,15 +163,16 @@ const CategoryPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {category?.map((value, index) => (
               <CouponCard
-                key={index}
-                companylogo={value?.store?.logo}
-                image={value?.category?.image}
-                minPurchase={value.minimumPurchaseAmount}
-                description={value.description}
-                id={value._id}
-                code={value.couponCode}
-              />
-            ))}
+            key={value._id}
+            companylogo={value?.store?.logo}
+            image={value?.category?.image}
+            minPurchase={value.minimumPurchaseAmount}
+            description={value.description}
+            id={value._id}
+            code={value.couponCode}
+            basePath="/category"
+          />
+          ))}
           </div>
         </div>
       </div>
